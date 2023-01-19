@@ -51,6 +51,11 @@
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="ogG-O2-2uJ" secondAttribute="height" multiplier="2:3" id="riK-1U-aLK"/>
                                         </constraints>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                <integer key="value" value="20"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
                                     </imageView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="V1T-C4-tsu">
                                         <rect key="frame" x="0.0" y="624.5" width="374" height="80"/>
@@ -118,7 +123,7 @@
                             </stackView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
-                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" name="black"/>
                         <constraints>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="i2D-2d-Ayq" secondAttribute="trailing" constant="20" id="1eN-QQ-01Y"/>
                             <constraint firstItem="i2D-2d-Ayq" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="10" id="cpg-3C-fuh"/>
@@ -128,7 +133,9 @@
                     <connections>
                         <outlet property="counterLabel" destination="LGc-zN-yAo" id="3PD-3g-YGU"/>
                         <outlet property="imageView" destination="ogG-O2-2uJ" id="Leu-Vx-oQ7"/>
+                        <outlet property="noButton" destination="KEK-r1-kSJ" id="KGA-2Y-GGN"/>
                         <outlet property="textLabel" destination="bcQ-0W-APw" id="Rck-Fq-DXk"/>
+                        <outlet property="yesButton" destination="VdX-wX-tjW" id="S3V-6o-b09"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
