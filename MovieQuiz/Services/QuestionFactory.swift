@@ -45,7 +45,7 @@ final class QuestionFactory: QuestionFactoryProtocol {
     ]
     
     // Dependencies
-    weak var delegate: QuestionFactoryDelegate?
+    private weak var delegate: QuestionFactoryDelegate?
     
     // MARK: - Initialize
     

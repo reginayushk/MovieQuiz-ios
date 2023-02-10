@@ -10,7 +10,7 @@ import UIKit
 final class AlertPresenter: AlertPresenterProtocol {
     
     // Dependencies
-    weak var transitionHandler: UIViewController?
+    private weak var transitionHandler: UIViewController?
     
     // MARK: - Initialize
     
