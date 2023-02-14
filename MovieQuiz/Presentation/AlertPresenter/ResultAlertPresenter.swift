@@ -30,7 +30,6 @@ final class ResultAlertPresenter: ResultAlertPresenterProtocol {
         + "Рекорд: \(bestGame.correct)/\(bestGame.total) \(bestGame.date.dateTimeString)\n"
         + "Средняя точность: \(String(format: "%.2f", statisticService.totalAccuracy))%"
         
-        
         let alertModel = AlertModel(
             title: "Этот раунд окончен!",
             message: message,

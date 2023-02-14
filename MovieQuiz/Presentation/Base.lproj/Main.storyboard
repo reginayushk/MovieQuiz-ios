@@ -121,16 +121,22 @@
                                     </stackView>
                                 </subviews>
                             </stackView>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="uwx-yi-P9t">
+                                <rect key="frame" x="197" y="438" width="20" height="20"/>
+                            </activityIndicatorView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" name="black"/>
                         <constraints>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="i2D-2d-Ayq" secondAttribute="trailing" constant="20" id="1eN-QQ-01Y"/>
                             <constraint firstItem="i2D-2d-Ayq" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="10" id="cpg-3C-fuh"/>
+                            <constraint firstItem="uwx-yi-P9t" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="eX3-xd-VGE"/>
+                            <constraint firstItem="uwx-yi-P9t" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="osg-mX-xYc"/>
                             <constraint firstItem="i2D-2d-Ayq" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="uHY-8Y-NCN"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="activityIndicator" destination="uwx-yi-P9t" id="ynE-cb-NhS"/>
                         <outlet property="counterLabel" destination="LGc-zN-yAo" id="3PD-3g-YGU"/>
                         <outlet property="imageView" destination="ogG-O2-2uJ" id="Leu-Vx-oQ7"/>
                         <outlet property="noButton" destination="KEK-r1-kSJ" id="KGA-2Y-GGN"/>
