@@ -9,8 +9,11 @@ import XCTest
 @testable import MovieQuiz
 
 final class MovieQuizViewControllerMock: UIViewController, MovieQuizViewControllerProtocol {
+    
+    var showQuizStepModel: QuizStepViewModel?
+    
     func show(quiz step: QuizStepViewModel) {
-        
+        showQuizStepModel = step
     }
     
     func highlightImageBorder(isCorrectAnswer: Bool) {
@@ -59,6 +62,21 @@ final class MovieQuizPresenterTests: XCTestCase {
         XCTAssertNotNil(viewModel.image)
         XCTAssertEqual(viewModel.question, "Question Text")
         XCTAssertEqual(viewModel.questionNumber, "1/10")
+    }
+    
+    func testPresenterDidReceiveNextQuestion() throws {
+        // Given
+        let emptyData = Data()
+        let question = QuizQuestion(image: emptyData, text: "Question Text", correctAnswer: true)
+        
+        // When
+        let expectation = expectation(description: "Loading expectation")
+        sut.didReceiveNextQuestion(question: question)
+        DispatchQueue.main.async { expectation.fulfill() }
+        
+        // Then
+        waitForExpectations(timeout: 1)
+        XCTAssertNotNil(viewControllerMock.showQuizStepModel)
     }
     
     func testPresenterSwitchToNextQuestionAndIsLastQuestion() throws {

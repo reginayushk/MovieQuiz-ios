@@ -18,7 +18,7 @@ final class MovieQuizPresenter: QuestionFactoryDelegate {
     
     // Dependencies
     private weak var viewController: MovieQuizViewControllerProtocol?
-    private var questionFactory: QuestionFactoryProtocol?
+    private var questionFactory: QuestionFactoryProtocol
     private let statisticService: StatisticService
     private let resultAlertPresenter: ResultAlertPresenterProtocol
     private let alertPresenter: AlertPresenterProtocol
@@ -34,7 +34,9 @@ final class MovieQuizPresenter: QuestionFactoryDelegate {
         
         resultAlertPresenter = ResultAlertPresenter(alertPresenter: alertPresenter, statisticService: statisticService)
         
-        questionFactory = QuestionFactory(moviesLoader: MoviesLoader(), delegate: self)
+        let questionFactory = QuestionFactory(moviesLoader: MoviesLoader())
+        self.questionFactory = questionFactory
+        questionFactory.delegate = self
     }
     
     // MARK: - Public Functions
@@ -53,7 +55,7 @@ final class MovieQuizPresenter: QuestionFactoryDelegate {
     func restartGame() {
         currentQuestionIndex = 0
         correctAnswers = 0
-        questionFactory?.requestNextQuestion()
+        questionFactory.requestNextQuestion()
     }
     
     func switchToNextQuestion() {
@@ -69,18 +71,18 @@ final class MovieQuizPresenter: QuestionFactoryDelegate {
     }
     
     func fetchData() {
-        questionFactory?.loadData()
+        questionFactory.loadData()
         viewController?.showLoadingIndicator()
     }
     
     // MARK: - Private Functions
     
     private func proceedToNextQuestionOrResults() {
-        if self.isLastQuestion() {
+        if isLastQuestion() {
             showResults()
         } else {
-            self.switchToNextQuestion()
-            questionFactory?.requestNextQuestion()
+            switchToNextQuestion()
+            questionFactory.requestNextQuestion()
         }
     }
     
@@ -94,7 +96,11 @@ final class MovieQuizPresenter: QuestionFactoryDelegate {
         proceedWithAnswer(isCorrect: givenAnswer == currentQuestion.correctAnswer)
     }
     
-    private func proceedWithAnswer(isCorrect: Bool) {        
+    private func proceedWithAnswer(isCorrect: Bool) {
+        if isCorrect {
+            correctAnswers += 1
+        }
+        
         viewController?.highlightImageBorder(isCorrectAnswer: isCorrect)
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) { [weak self] in
@@ -104,9 +110,9 @@ final class MovieQuizPresenter: QuestionFactoryDelegate {
     }
     
     private func showResults() {
-        statisticService.store(correct: correctAnswers, total: self.questionsAmount)
+        statisticService.store(correct: correctAnswers, total: questionsAmount)
         
-        let resultAlertModel = ResultAlertModel(correctAnswers: correctAnswers, questionsAmount: self.questionsAmount) { [weak self] in
+        let resultAlertModel = ResultAlertModel(correctAnswers: correctAnswers, questionsAmount: questionsAmount) { [weak self] in
             guard let self = self else { return }
             self.restartGame()
         }
@@ -134,7 +140,7 @@ final class MovieQuizPresenter: QuestionFactoryDelegate {
     
     func didLoadDataFromServer() {
         viewController?.hideLoadingIndicator()
-        questionFactory?.requestNextQuestion()
+        questionFactory.requestNextQuestion()
     }
     
     func didFailToLoadData(with error: Error) {
@@ -150,7 +156,8 @@ final class MovieQuizPresenter: QuestionFactoryDelegate {
         currentQuestion = question
         let viewModel = convert(model: question)
         DispatchQueue.main.async { [weak self] in
-            self?.viewController?.show(quiz: viewModel)
+            guard let self = self else { return }
+            self.viewController?.show(quiz: viewModel)
         }
     }
 }

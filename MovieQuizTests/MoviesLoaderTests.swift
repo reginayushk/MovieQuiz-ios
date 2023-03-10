@@ -73,6 +73,8 @@ class MoviesLoaderTests: XCTestCase {
             switch result {
             case .success(let movies):
                 XCTAssertEqual(movies.items.count, 2)
+                XCTAssertEqual(movies.items.first?.title, "Prey (2022)")
+                XCTAssertEqual(movies.items.last?.rating, "6.5")
                 expectation.fulfill()
             case .failure(_):
                 XCTFail("Unexpected failure")
@@ -95,6 +97,7 @@ class MoviesLoaderTests: XCTestCase {
             switch result {
             case .failure(let error):
                 XCTAssertNotNil(error)
+                XCTAssertEqual(error.localizedDescription, StubNetworkClient.TestError.test.localizedDescription)
                 expectation.fulfill()
             case .success(_):
                 XCTFail("Unexpected failure")
