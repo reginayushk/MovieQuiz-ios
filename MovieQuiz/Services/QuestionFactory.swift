@@ -48,13 +48,12 @@ final class QuestionFactory: QuestionFactoryProtocol {
     private var movies: [MostPopularMovie] = []
     
     // Dependencies
-    private weak var delegate: QuestionFactoryDelegate?
+    weak var delegate: QuestionFactoryDelegate?
     
     // MARK: - Initialize
     
-    init(moviesLoader: MoviesLoading, delegate: QuestionFactoryDelegate) {
+    init(moviesLoader: MoviesLoading) {
         self.moviesLoader = moviesLoader
-        self.delegate = delegate
     }
     
     // MARK: - QuestionFactoryProtocol
